@@ -7,15 +7,19 @@ format:
 
 This is my analysis.
 
+$a^2 + b^2 = c^2 + 3$
+
 ```{r}
 library(tidyverse)
 df <- read_csv("Sanitation_Salvage_Truck_Violations_20250718.csv")
 violation_type <- df |> group_by(Violation) |> 
   summarize(count = n())
 ggplot(violation_type, aes(x = count, y = reorder(Violation, count))) + 
-  geom_col()
+  geom_col(fill = "red") +
+  labs(x = "Number of violations", y = NULL,
+       title = "Violations", subtitle = "Sanitation") +
+  theme(axis.text.y = element_text(color = "blue", size = 6))
 ```
-
 
 ```{r}
 df <- df |> 
@@ -23,4 +27,3 @@ df <- df |>
 ggplot(df, aes(x = fct_infreq(time_of_day))) +
   geom_bar()
 ```
-
